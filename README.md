@@ -3,7 +3,6 @@
 This is sample app to learn MVVM, Retrofit2, Dagger2. Here is the documention for the same.
 
 ## Recyclerview
----
 Recyclerview has two main components:
 
 - ViewHolder
