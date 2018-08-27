@@ -6,11 +6,11 @@ import android.arch.lifecycle.ViewModel;
 import com.example.shyam.dagger2sample.model.UserList;
 import com.example.shyam.dagger2sample.service.UserRepository;
 
-public class MyViewModel extends ViewModel {
+public class RandomUserViewModel extends ViewModel {
 
     private final LiveData<UserList> userListLiveDataObservable;
 
-    MyViewModel() {
+    RandomUserViewModel() {
         userListLiveDataObservable = UserRepository.getInstance().getUserDetailList(10);
     }
 

@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.shyam.dagger2sample.adapter.UserDetailsAdapter;
-import com.example.shyam.dagger2sample.viewmodel.MyViewModel;
+import com.example.shyam.dagger2sample.viewmodel.RandomUserViewModel;
 import com.example.shyam.dagger2sample.R;
 import com.example.shyam.dagger2sample.model.UserDetails;
 
@@ -50,8 +50,8 @@ public class HomeFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        final MyViewModel viewModel =
-                ViewModelProviders.of(this).get(MyViewModel.class);
+        final RandomUserViewModel viewModel =
+                ViewModelProviders.of(this).get(RandomUserViewModel.class);
 
         observeViewModel(viewModel);
         adapter = new UserDetailsAdapter(new ArrayList<>(), itemClickInteractionListener);
@@ -61,7 +61,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void observeViewModel(MyViewModel viewModel) {
+    private void observeViewModel(RandomUserViewModel viewModel) {
         viewModel.getUserDetailsLiveDataObservable().observe(this, userList -> {
             List<UserDetails> userDetails = userList.getList();
             if(userDetails.size() > 0) {
