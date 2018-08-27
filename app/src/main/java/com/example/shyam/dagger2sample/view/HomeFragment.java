@@ -1,5 +1,6 @@
 package com.example.shyam.dagger2sample.view;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
@@ -20,12 +21,17 @@ import com.example.shyam.dagger2sample.model.UserDetails;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class HomeFragment extends Fragment {
 
 
     RecyclerView recyclerView;
     UserDetailsAdapter adapter;
     ItemClickInteractionListener itemClickInteractionListener;
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
 
     @Override
     public void onAttach(Context context) {
@@ -51,7 +57,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         final RandomUserViewModel viewModel =
-                ViewModelProviders.of(this).get(RandomUserViewModel.class);
+                ViewModelProviders.of(this, viewModelFactory).get(RandomUserViewModel.class);
 
         observeViewModel(viewModel);
         adapter = new UserDetailsAdapter(new ArrayList<>(), itemClickInteractionListener);

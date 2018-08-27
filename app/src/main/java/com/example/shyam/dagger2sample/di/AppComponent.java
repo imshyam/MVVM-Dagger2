@@ -6,8 +6,12 @@ import com.example.shyam.dagger2sample.DaggerMVVMApplication;
 
 import dagger.BindsInstance;
 import dagger.Component;
+import dagger.android.AndroidInjectionModule;
 
-@Component(modules = {ViewModelModule.class})
+@Component(modules = {
+        AndroidInjectionModule.class,
+        AppModule.class,
+        ActivityModule.class})
 public interface AppComponent {
     @Component.Builder
     interface Builder {

@@ -1,8 +1,10 @@
 package com.example.shyam.dagger2sample.di;
 
 import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
 
 import com.example.shyam.dagger2sample.viewmodel.RandomUserViewModel;
+import com.example.shyam.dagger2sample.viewmodel.ViewModelFactory;
 
 import dagger.Binds;
 import dagger.Module;
@@ -15,4 +17,8 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RandomUserViewModel.class)
     abstract ViewModel bindRandomUserViewModel(RandomUserViewModel randomUserViewModel);
+
+
+    @Binds
+    abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);
 }

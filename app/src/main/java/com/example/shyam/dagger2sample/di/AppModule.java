@@ -1,4 +1,10 @@
 package com.example.shyam.dagger2sample.di;
 
-public class AppModule {
+import dagger.Module;
+
+@Module(includes = {
+        ViewModelModule.class
+})
+class AppModule {
+    
 }

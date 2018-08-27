@@ -3,12 +3,13 @@ package com.example.shyam.dagger2sample;
 import android.app.Activity;
 import android.app.Application;
 
+import com.example.shyam.dagger2sample.di.AppInjector;
+
 import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 
-import com.shyam.gojektemperature.di.AppInjector;
 
 public class DaggerMVVMApplication extends Application implements HasActivityInjector {
 
