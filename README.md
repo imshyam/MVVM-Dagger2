@@ -140,3 +140,99 @@ While creating Adapter Instance pass `itemClickInteractionListener` to the adapt
 ``` java
 adapter = new UserDetailsAdapter(new ArrayList<>(), itemClickInteractionListener);
 ```
+## Retrofit 2
+
+Create service interface:
+``` java
+interface ApiService  {
+
+    @GET("api/")
+    Call<UserList> userlist(@Query("results") String results);
+
+}
+```
+
+Create Repository:
+
+``` java
+public class UserRepository {
+
+    private ApiService apiService;
+    private static UserRepository userRepository;
+
+    private UserRepository() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://randomuser.me/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        this.apiService = retrofit.create(ApiService.class);
+    }
+
+    public static UserRepository getInstance() {
+        if(userRepository == null) {
+            userRepository = new UserRepository();
+        }
+        return new UserRepository();
+    }
+
+    public LiveData<UserList> getUserDetailList(int noOfUsers) {
+        final MutableLiveData<UserList> liveData = new MutableLiveData<>();
+
+        apiService.userlist(String.valueOf(noOfUsers)).enqueue(new Callback<UserList>() {
+            @Override
+            public void onResponse(Call<UserList> call, Response<UserList> response) {
+                liveData.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<UserList> call, Throwable t) {
+                Log.d("Log", t.getMessage());
+            }
+        });
+
+        return liveData;
+    }
+
+}
+```
+
+[Making Retrofit Work For You by Jake Wharton.](https://www.youtube.com/watch?v=t34AQlblSeE)
+
+## ViewModel
+Create view model: 
+``` java
+public class MyViewModel extends ViewModel {
+
+    private final LiveData<UserList> userListLiveDataObservable;
+
+    MyViewModel() {
+        userListLiveDataObservable = UserRepository.getInstance().getUserDetailList(10);
+    }
+
+
+    public LiveData<UserList> getUserDetailsLiveDataObservable() {
+        return userListLiveDataObservable;
+    }
+}
+```
+Data to viewmodel can be passed using Factory or set method.
+Using viewmodel in Activity or Fragment: 
+``` java
+
+final MyViewModel viewModel =
+        ViewModelProviders.of(this).get(MyViewModel.class);
+
+observeViewModel(viewModel);
+```
+Observe LiveData:
+``` java
+private void observeViewModel(MyViewModel viewModel) {
+    viewModel.getUserDetailsLiveDataObservable().observe(this, userList -> {
+        List<UserDetails> userDetails = userList.getList();
+        if(userDetails.size() > 0) {
+            adapter.updateData(userDetails);
+        }
+    });
+}
+```
