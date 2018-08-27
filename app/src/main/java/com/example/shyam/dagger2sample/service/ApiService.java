@@ -6,7 +6,9 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-interface ApiService  {
+public interface ApiService  {
+
+    String BASE_URL = "https://randomuser.me/";
 
     @GET("api/")
     Call<UserList> userlist(@Query("results") String results);
