@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import com.example.shyam.dagger2sample.viewmodel.RandomUserViewModel;
-import com.example.shyam.dagger2sample.viewmodel.ViewModelFactory;
+import com.example.shyam.dagger2sample.viewmodel.RandomUserViewModelFactory;
 
 import dagger.Binds;
 import dagger.Module;
@@ -20,5 +20,5 @@ abstract class ViewModelModule {
 
 
     @Binds
-    abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);
+    abstract ViewModelProvider.Factory bindViewModelFactory(RandomUserViewModelFactory factory);
 }

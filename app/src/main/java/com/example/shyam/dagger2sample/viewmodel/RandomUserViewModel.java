@@ -14,7 +14,7 @@ public class RandomUserViewModel extends ViewModel {
     private final LiveData<UserList> userListLiveDataObservable;
 
     @Inject
-    RandomUserViewModel(@NonNull UserRepository userRepository) {
+    public RandomUserViewModel(@NonNull UserRepository userRepository) {
         userListLiveDataObservable = userRepository.getUserDetailList(10);
     }
 
